@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: db
+    ports:
+      - '52601:27017'
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    healthcheck:
+      test: [ "CMD", "mongosh", "--norc", "--quiet", "--eval", "db.runCommand('ping')" ]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
